@@ -63,8 +63,10 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }} --legacy-peer-deps
-      - name: Update dependencies to latest
-        run: npm update --save
+      - name: Install latest compatible react-day-picker and date-fns
+        run: npm install react-day-picker@latest date-fns@^3.6.0 --save --legacy-peer-deps
+      - name: Update other dependencies to latest
+        run: npm install --save --legacy-peer-deps
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Upload artifact
